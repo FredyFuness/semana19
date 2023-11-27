@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+{% if es_estudiante or es_admin %}
+    <h1>Bienvenido {{ user.username }} al área de Estudiantes</h1>
+{% else %}
+    <h1>No tienes permisos para acceder a esta página</h1>
+{% endif %}
+<a href="{% url 'logout' %}">Cerrar sesión</a>
+
+<h2>Lista de Proveedores</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Telefono</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {%for proveedor in proveedores%}
+        <tr>
+            <td>{{proveedor.nombre}}</td>
+            <td>{{proveedor.telefono}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'agregar-proveedor' %}">Agregar Proveedor</a>
+
+<h2>Lista de Productos</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Stock</th>
+            <th>Proveedor</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {%for producto in productos%}
+        <tr>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.stock}}</td>
+            <td>{{producto.fk_prov}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'agregar-producto' %}">Agregar Producto</a>
+
+</body>
+</html>
